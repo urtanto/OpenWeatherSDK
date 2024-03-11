@@ -20,6 +20,11 @@ class TestOpenWeatherSDK(unittest.TestCase):
     def setUp(self):
         self.api_key = '4ddb12d67c931bb4d4bb26e7d8991f57'
 
+    def test_same_object(self):
+        sdk1 = OpenWeatherSDK(self.api_key)
+        sdk2 = OpenWeatherSDK(self.api_key)
+        self.assertIs(sdk1, sdk2)
+
     def test_get_time_difference(self):
         time1 = datetime(2021, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
         time2 = datetime(2021, 1, 1, 12, 30, 0, tzinfo=timezone.utc)
@@ -27,13 +32,13 @@ class TestOpenWeatherSDK(unittest.TestCase):
         self.assertEqual(diff, 1800)
 
     def test_get_city_coordinates(self):
-        self.sdk = OpenWeatherSDK(self.api_key)
-        city_coordinates = self.sdk.get_city_coordinates("Saint Petersburg")
+        sdk = OpenWeatherSDK(self.api_key)
+        city_coordinates = sdk.get_city_coordinates("Saint Petersburg")
         self.assertEqual(city_coordinates, (59.938732, 30.316229))
 
     def test_get_weatherdata(self):
-        self.sdk = OpenWeatherSDK(self.api_key)
-        city_weatherdata = self.sdk.get_weatherdata("Saint Petersburg")
+        sdk = OpenWeatherSDK(self.api_key)
+        city_weatherdata = sdk.get_weatherdata("Saint Petersburg")
         city_weatherdata = json.loads(city_weatherdata)
         self.assertIn("weather", city_weatherdata)
         self.assertIn("main", city_weatherdata["weather"])
@@ -52,26 +57,26 @@ class TestOpenWeatherSDK(unittest.TestCase):
         self.assertIn("name", city_weatherdata)
 
     def test_cache(self):
-        self.sdk = OpenWeatherSDK(self.api_key)
+        sdk = OpenWeatherSDK(self.api_key)
         for city in ["London", "New York", "Paris", "Tokyo", "Berlin", "Moscow", "Sydney", "Rome", "Madrid", "Toronto"]:
-            city_weatherdata1, time1 = timer(self.sdk.get_weatherdata)(city)
-            city_weatherdata2, time2 = timer(self.sdk.get_weatherdata)(city)
+            city_weatherdata1, time1 = timer(sdk.get_weatherdata)(city)
+            city_weatherdata2, time2 = timer(sdk.get_weatherdata)(city)
             self.assertLess(time2, time1)
-        _, time1 = timer(self.sdk.get_weatherdata)("London")
+        _, time1 = timer(sdk.get_weatherdata)("London")
         self.assertLess(time1, 1)
-        _, _ = timer(self.sdk.get_weatherdata)("Saint Petersburg")
-        _, time2 = timer(self.sdk.get_weatherdata)("London")
+        _, _ = timer(sdk.get_weatherdata)("Saint Petersburg")
+        _, time2 = timer(sdk.get_weatherdata)("London")
         self.assertLess(time1, time2)
 
     def test_pooling(self):
-        self.sdk = OpenWeatherSDK(self.api_key, pooling=True)
-        _, time1 = timer(self.sdk.get_weatherdata)("London")
-        _, time2 = timer(self.sdk.get_weatherdata)("London")
+        sdk = OpenWeatherSDK(self.api_key, pooling=True)
+        _, time1 = timer(sdk.get_weatherdata)("London")
+        _, time2 = timer(sdk.get_weatherdata)("London")
         self.assertLess(time2, time1)
         time.sleep(10.5 * 60)
-        _, time1 = timer(self.sdk.get_weatherdata)("London")
+        _, time1 = timer(sdk.get_weatherdata)("London")
         self.assertGreater(time1, 1)
-        _, time2 = timer(self.sdk.get_weatherdata)("London")
+        _, time2 = timer(sdk.get_weatherdata)("London")
         self.assertLess(time2, time1)
 
 
