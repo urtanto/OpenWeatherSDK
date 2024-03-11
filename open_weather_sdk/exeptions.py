@@ -1,19 +1,20 @@
 class APIError(Exception):
-    """Основной класс исключения для ошибок API."""
+    """Base exception class for the API exceptions."""
     pass
 
 
 class NotFoundError(APIError):
-    """Исключение для случая, когда ресурс не найден (404)."""
+    """Exception raised when a requested resource is not found (404)."""
     pass
 
 
 class UnauthorizedError(APIError):
-    """Исключение для ошибок аутентификации (401)."""
+    """Exception raised for authentication errors (401)."""
     pass
 
 
 class InvalidCity(APIError):
+    """Exception raised when the specified city is invalid or not recognized by the API."""
     pass
 
 
