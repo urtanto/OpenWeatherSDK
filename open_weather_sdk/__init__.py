@@ -3,6 +3,17 @@ from datetime import datetime
 from dataclasses import dataclass
 
 
+def get_time_difference(time1: datetime, time2: datetime) -> float:
+    """
+    Calculates the absolute difference in seconds between two datetime objects.
+
+    :param time1: The first datetime object.
+    :param time2: The second datetime object.
+    :return: The absolute difference in seconds between time1 and time2.
+    """
+    return abs((time2 - time1).total_seconds())
+
+
 @dataclass
 class WeatherData:
     """
