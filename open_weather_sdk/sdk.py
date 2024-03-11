@@ -2,7 +2,6 @@ import json
 import time
 from datetime import datetime, timezone
 import threading
-
 import requests
 
 from open_weather_sdk import WeatherData, get_time_difference
