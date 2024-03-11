@@ -19,5 +19,5 @@ class InvalidCity(APIError):
 
 
 class RequestError(APIError):
-    """Исключение для остальных ошибок запроса."""
+    """Exception raised for other types of request errors."""
     pass
