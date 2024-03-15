@@ -179,7 +179,7 @@ class OpenWeatherSDK:
         elif response.status_code == 404:
             raise NotFoundError("Ресурс не найден", response.json())
         else:
-            raise RequestError("Ошибка получения данных от API:", response.status_code)
+            raise RequestError("Ошибка получения данных от API:", response.json()["message"])
 
     def __pooling_cycle(self):
         """
