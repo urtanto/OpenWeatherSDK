@@ -1,6 +1,8 @@
 # OpenWeatherSDK
 
-The OpenWeatherSDK provides a convenient way to interact with the OpenWeatherMap API, enabling developers to easily integrate weather data into their applications. This SDK supports retrieving current weather data, forecasts, and historical weather information for any location provided by the user.
+The OpenWeatherSDK provides a convenient way to interact with the OpenWeatherMap API, enabling developers to easily
+integrate weather data into their applications. This SDK supports retrieving current weather data information for any
+location provided by the user.
 
 ## Features
 
@@ -11,7 +13,8 @@ The OpenWeatherSDK provides a convenient way to interact with the OpenWeatherMap
 
 ## Installation
 
-To install the OpenWeatherSDK, you will need to clone this repository and install the required dependencies listed in `requirements.txt`.
+To install the OpenWeatherSDK, you will need to clone this repository and install the required dependencies listed
+in `requirements.txt`.
 
 ```bash
 git clone https://github.com/urtanto/OpenWeatherSDK.git
@@ -21,7 +24,8 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-To get started with the OpenWeatherSDK, you need to first obtain an API key from [OpenWeatherMap](https://openweathermap.org/api).
+To get started with the OpenWeatherSDK, you need to first obtain an API key
+from [OpenWeatherMap](https://openweathermap.org/api).
 
 Here is a simple example on how to use the SDK to retrieve current weather data for a specific location:
 
@@ -41,7 +45,8 @@ print(weather_data)
 
 ## Handling Exceptions
 
-The SDK defines several custom exceptions to handle various error conditions. It is recommended to wrap your calls in try-except blocks to manage potential errors gracefully.
+The SDK defines several custom exceptions to handle various error conditions. It is recommended to wrap your calls in
+try-except blocks to manage potential errors gracefully.
 
 ```python
 from open_weather_sdk.sdk import OpenWeatherSDK
